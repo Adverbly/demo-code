@@ -4,8 +4,7 @@ DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ' # 2017-03-03T13:31:42Z
 TEN_DIGIT_PHONE_REGEX = /^\d{3}-\d{3}-\d{4}$/ # 123-123-1234
 REPEAT_INTERVAL = 1 # seconds
 
-print_date = Proc.new {puts DateTime.now.strftime(DATE_FORMAT)}
-printer = BackgroundRepeater.new print_date, REPEAT_INTERVAL
+printer = BackgroundRepeater.new(REPEAT_INTERVAL) {puts DateTime.now.strftime(DATE_FORMAT)}
 printer.start
 
 def get_input(prompt)

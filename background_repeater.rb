@@ -1,14 +1,14 @@
 class BackgroundRepeater
   MIN_INTERVAL = 0.001
 
-  def initialize(action, interval)
-    raise 'Nope' unless interval >= MIN_INTERVAL && action.is_a?(Proc)
+  def initialize(interval)
+    raise 'Nope' unless interval >= MIN_INTERVAL
     @is_running = false
     @interval = interval
     @thread = Thread.new do
       loop do
         Thread.stop unless @is_running
-        action.call # if action is known to be long-running, should kick off new thread for it
+        yield
         wait_for_next_start
       end
     end

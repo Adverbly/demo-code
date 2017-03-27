@@ -8,7 +8,9 @@ class BackgroundRepeater
     @thread = Thread.new do
       loop do
         Thread.stop unless @is_running
-        yield
+        Thread.new do
+          yield
+        end
         wait_for_next_start
       end
     end
